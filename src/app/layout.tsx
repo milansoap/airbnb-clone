@@ -3,6 +3,10 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Nunito } from 'next/font/google'
 import Navbar from './components/navbar/Navbar'
+import ClientOnly from './components/ClientOnly'
+import Modal from './components/modals/Modal'
+import RegisterModal from './components/modals/RegisterModal'
+import ToasterProvider from './providers/ToasterProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,7 +16,7 @@ export const metadata: Metadata = {
 }
 
 const font = Nunito({
-  subsets:['latin']
+  subsets: ['latin']
 })
 
 export default function RootLayout({
@@ -23,10 +27,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className}>
-        <Navbar />
+        <ClientOnly>
+          {/* <Modal title='hello' isOpen/> */}
+          <ToasterProvider />
+          <RegisterModal />
+          <Navbar />
+        </ClientOnly>
         {children}
-        
-        </body>
+
+      </body>
     </html>
   )
 }
